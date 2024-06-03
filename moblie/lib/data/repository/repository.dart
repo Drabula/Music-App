@@ -1,21 +1,21 @@
-import 'package:moblie/data/source/source.dart';
 
 import '../model/song.dart';
+import '../source/source.dart';
 
 abstract interface class Repository {
   Future<List<Song>?> loadData();
 }
 
 class DefaultRepository implements Repository {
-  final _locaDataSource = LocalDataSource();
+  final _localDataSource = LocalDataSource();
   final _remoteDataSource = RemoteDataSource();
 
   @override
   Future<List<Song>?> loadData() async {
     List<Song> songs = [];
-    await _remoteDataSource.loadData().then((remoteSongs) {
+    await _remoteDataSource.loadData().then((remoteSongs) async {
       if (remoteSongs == null) {
-        _locaDataSource.loadData().then((localSongs) {
+        await _localDataSource.loadData().then((localSongs) {
           if (localSongs != null) {
             songs.addAll(localSongs);
           }
@@ -24,5 +24,6 @@ class DefaultRepository implements Repository {
         songs.addAll(remoteSongs);
       }
     });
+    return songs;
   }
 }

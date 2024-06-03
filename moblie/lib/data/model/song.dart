@@ -17,7 +17,7 @@ class Song {
         artist: map['artist'],
         source: map['source'],
         image: map['image'],
-        duration: map['id']);
+        duration: map['duration']);
   }
 
   String id;
@@ -38,6 +38,7 @@ class Song {
 
   @override
   String toString() {
-    return 'Song{id: $id, title: $title, album: $album, artist: $artist, source: $source, image: $image, duration: $duration}';
+    return 'Song{id: $id, title: $title, album: $album, artist: $artist,'
+        ' source: $source, image: $image, duration: $duration}';
   }
 }
