@@ -3,7 +3,7 @@ import 'package:moblie/data/repository/repository.dart';
 
 void main() async {
   var repository = DefaultRepository();
-  var songs =await repository.loadData();
+  var songs = await repository.loadData();
   if(songs != null){
     for( var song in songs){
       debugPrint(song.toString());
