@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +44,7 @@ class _NowPlayingPageState extends State<NowPlayingPage>
   late int _selectedItemIndex;
   late Song _song;
   late double _currentAnimationPosition = 0.0;
+  bool _isShuffle = false;
 
   @override
   void initState() {
@@ -195,10 +198,10 @@ class _NowPlayingPageState extends State<NowPlayingPage>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          const MediaButtonControl(
-              function: null,
+          MediaButtonControl(
+              function: _setShuffle,
               icon: Icons.shuffle,
-              color: Colors.deepPurple,
+              color: _getShuffleColor(),
               size: 24),
           MediaButtonControl(
               function: _setPrevSong,
@@ -301,8 +304,26 @@ class _NowPlayingPageState extends State<NowPlayingPage>
     );
   }
 
+  void _setShuffle() {
+    setState(() {
+      _isShuffle = !_isShuffle;
+    });
+  }
+
+  Color? _getShuffleColor() {
+    return _isShuffle ? Colors.deepPurple : Colors.grey;
+  }
+
   void _setNextSong() {
-    ++_selectedItemIndex;
+    if (_isShuffle) {
+      var random = Random();
+      _selectedItemIndex = random.nextInt(widget.songs.length);
+    } else {
+      ++_selectedItemIndex;
+    }
+    if (_selectedItemIndex >= widget.songs.length) {
+      _selectedItemIndex = _selectedItemIndex % widget.songs.length;
+    }
     final nextSong = widget.songs[_selectedItemIndex];
     _audioPlayerManager.updateSongUrl(nextSong.source);
     _resetRotationAnim();
@@ -312,7 +333,15 @@ class _NowPlayingPageState extends State<NowPlayingPage>
   }
 
   void _setPrevSong() {
-    --_selectedItemIndex;
+    if (_isShuffle) {
+      var random = Random();
+      _selectedItemIndex = random.nextInt(widget.songs.length);
+    } else {
+      --_selectedItemIndex;
+    }
+    if (_selectedItemIndex < 0) {
+      _selectedItemIndex = (-1 * _selectedItemIndex) % widget.songs.length;
+    }
     final nextSong = widget.songs[_selectedItemIndex];
     _audioPlayerManager.updateSongUrl(nextSong.source);
     _resetRotationAnim();
@@ -320,20 +349,22 @@ class _NowPlayingPageState extends State<NowPlayingPage>
       _song = nextSong;
     });
   }
-  void _playRotationAnim(){
+
+  void _playRotationAnim() {
     _imageAnimController.forward(from: _currentAnimationPosition);
     _imageAnimController.repeat();
   }
 
-  void _pauseRotationAnim(){
+  void _pauseRotationAnim() {
     _stopRotationAnim();
     _currentAnimationPosition = _imageAnimController.value;
   }
 
-  void _stopRotationAnim(){
+  void _stopRotationAnim() {
     _imageAnimController.stop();
   }
-  void _resetRotationAnim(){
+
+  void _resetRotationAnim() {
     _currentAnimationPosition = 0.0;
     _imageAnimController.value = _currentAnimationPosition;
   }
