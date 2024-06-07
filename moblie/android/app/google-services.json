@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "910635042727",
+    "project_id": "music-app-c08ff",
+    "storage_bucket": "music-app-c08ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910635042727:android:27d6ef3fb1bd4621c21882",
+        "android_client_info": {
+          "package_name": "com.example.moblie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-NglFZFFay1iYO0Iq4FjiZQom3hjPKv8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
