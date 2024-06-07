@@ -32,9 +32,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/background.jpg"),
+                image: AssetImage("assets/background.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -68,10 +68,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide.none,
                         ),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextField(
                       controller: _passwordController,
                       decoration: InputDecoration(
@@ -82,11 +82,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide.none,
                         ),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       ),
                       obscureText: true,
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: _register,
                       style: ElevatedButton.styleFrom(
@@ -94,9 +94,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
                       ),
-                      child: Text('Register'),
+                      child: const Text('Register'),
                     ),
                     TextButton(
                       onPressed: () {
@@ -104,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           MaterialPageRoute(builder: (context) => LoginScreen()),
                         );
                       },
-                      child: Text(
+                      child: const Text(
                         'Login',
                         style: TextStyle(color: Colors.white),
                       ),

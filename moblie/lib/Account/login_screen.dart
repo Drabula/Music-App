@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:moblie/ui/home/home.dart';
@@ -21,10 +22,12 @@ class _LoginScreenState extends State<LoginScreen> {
         password: _passwordController.text,
       );
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => MusicHomePage()),
+        MaterialPageRoute(builder: (context) => const MusicHomePage()),
       );
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -34,9 +37,9 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/background.jpg"), // Add your background image to assets
+                image: AssetImage("assets/background.png"), // Add your background image to assets
                 fit: BoxFit.cover,
               ),
             ),
@@ -51,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Login',
                       style:  TextStyle(
                           color: Colors.white,
@@ -60,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
 
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     TextField(
                       controller: _emailController,
                       decoration: InputDecoration(
@@ -71,10 +74,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide.none,
                         ),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextField(
                       controller: _passwordController,
                       decoration: InputDecoration(
@@ -85,11 +88,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide.none,
                         ),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       ),
                       obscureText: true,
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: _login,
                       style: ElevatedButton.styleFrom(
@@ -97,9 +100,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
                       ),
-                      child: Text('Login'),
+                      child: const Text('Login'),
                     ),
                     TextButton(
                       onPressed: () {
@@ -107,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           MaterialPageRoute(builder: (context) => RegisterScreen()),
                         );
                       },
-                      child: Text(
+                      child: const Text(
                         'Register',
                         style: TextStyle(color: Colors.white),
                       ),
