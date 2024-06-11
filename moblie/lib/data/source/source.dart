@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-
 import '../model/song.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,7 +10,7 @@ abstract interface class Datasource {
 class RemoteDataSource implements Datasource {
   @override
   Future<List<Song>?> loadData() async {
-    const url = 'https://thantrieu.com/resources/braniumapis/songs.json';
+    const url = 'https://testapi.io/api/minhvu/songs.json';
     final uri = Uri.parse(url);
     final response = await http.get(uri);
     if (response.statusCode == 200) {

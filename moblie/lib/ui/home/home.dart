@@ -20,7 +20,6 @@ class MusicApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-
       home: const MusicHomePage(),
       debugShowCheckedModeBanner: false,
     );
@@ -38,7 +37,7 @@ class _MusicHomePageState extends State<MusicHomePage> {
   final List<Widget> _tabs = [
     const HomeTab(),
     const DiscoveryTab(),
-    const AccountTab(),
+          AccountTab(),
     const SettingsTab(),
   ];
 
@@ -56,8 +55,7 @@ class _MusicHomePageState extends State<MusicHomePage> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.album), label: 'Discovery'),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.settings), label: 'Settings'),
+
           ],
         ),
         tabBuilder: (BuildContext context, int index) {
@@ -131,7 +129,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
       },
       separatorBuilder: (context, index) {
         return const Divider(
-          color: Colors.grey,
+          color: Colors.blue,
           thickness: 1,
           indent: 24,
           endIndent: 24,
@@ -204,34 +202,65 @@ class _songItemSelection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: const EdgeInsets.only(
-        left: 24,
-        right: 8,
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
       ),
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: FadeInImage.assetNetwork(
-          placeholder: 'assets/itunes.jpg',
-          image: song.image,
-          width: 48,
-          height: 48,
-          imageErrorBuilder: (context, error, stackTrace) {
-            return Image.asset('assets/itunes.jpg', width: 48, height: 48);
-          },
+      child: InkWell(
+        onTap: () {
+          parent.navigate(song);
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/itunes.jpg',
+                  image: song.image,
+                  width: 48,
+                  height: 48,
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset('assets/itunes.jpg', width: 48, height: 48);
+                  },
+                ),
+              ),
+              const SizedBox(width: 15),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      song.title,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      song.artist,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.more_horiz),
+                onPressed: () {
+                  parent.showBottomSheet();
+                },
+              ),
+            ],
+          ),
         ),
       ),
-      title: Text(song.title),
-      subtitle: Text(song.artist),
-      trailing: IconButton(
-        icon: const Icon(Icons.more_horiz),
-        onPressed: () {
-          parent.showBottomSheet();
-        },
-      ),
-      onTap: () {
-        parent.navigate(song);
-      },
     );
   }
 }
+

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:moblie/Account/login_screen.dart';
-
+import 'package:moblie/ui/discovery/discovery.dart';
+import 'package:moblie/ui/home/home.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
