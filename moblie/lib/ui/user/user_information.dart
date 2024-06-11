@@ -65,19 +65,16 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
         await user!.updateEmail(_emailController.text);
         await user!.updatePhotoURL(photoUrl);
 
-        // Check if the user document exists
         DocumentReference userDocRef = FirebaseFirestore.instance.collection('users').doc(user!.uid);
         DocumentSnapshot userDoc = await userDocRef.get();
 
         if (userDoc.exists) {
-          // Update the document
           await userDocRef.update({
             'name': _nameController.text,
             'email': _emailController.text,
             'photoUrl': photoUrl,
           });
         } else {
-          // Create the document if it doesn't exist
           await userDocRef.set({
             'name': _nameController.text,
             'email': _emailController.text,
@@ -87,13 +84,12 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
 
         setState(() {
           _photoUrl = photoUrl;
+          user = FirebaseAuth.instance.currentUser;
         });
 
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Cập nhật thông tin thành công')));
-
-        // Navigate back to the account tab after successful update
-        Navigator.pop(context, true); // Return true to indicate success
+        Navigator.pop(context, true); // Trả về true để báo cập nhật thành công
       } catch (e) {
         print("Error updating user info: $e");
         ScaffoldMessenger.of(context).showSnackBar(
@@ -158,7 +154,7 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
               SizedBox(height: 20),
               _isUpdating
                   ? CircularProgressIndicator()
-                  : TextButton(
+                  : ElevatedButton(
                 onPressed: _updateUserInfo,
                 child: Text('Cập nhật thông tin'),
               ),

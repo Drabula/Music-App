@@ -21,11 +21,13 @@ class _AccountTabState extends State<AccountTab> {
   }
 
   Future<void> _loadUserInfo() async {
+    user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      userName = user!.displayName;
-      userEmail = user!.email;
-      userPhotoUrl = user!.photoURL;
-      setState(() {});
+      setState(() {
+        userName = user!.displayName;
+        userEmail = user!.email;
+        userPhotoUrl = user!.photoURL;
+      });
     }
   }
 
@@ -42,7 +44,7 @@ class _AccountTabState extends State<AccountTab> {
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
-            onPressed: (){
+            onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => LoginScreen()),
               );
@@ -100,7 +102,7 @@ class _AccountTabState extends State<AccountTab> {
                 );
                 if (result == true) {
                   // Reload user info if data was updated
-                  _loadUserInfo();
+                  await _loadUserInfo();
                 }
               },
             ),
