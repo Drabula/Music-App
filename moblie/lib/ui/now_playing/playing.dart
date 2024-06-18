@@ -47,6 +47,7 @@ class _NowPlayingPageState extends State<NowPlayingPage>
   bool _isShuffle = false;
 
   RepeatMode _repeatMode = RepeatMode.off;
+
   @override
   void initState() {
     super.initState();
@@ -54,7 +55,7 @@ class _NowPlayingPageState extends State<NowPlayingPage>
     _song = widget.playingSong;
     _imageAnimController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 10),
+      duration: const Duration(minutes: 1),
     );
     _audioPlayerManager = AudioPlayerManager(songUrl: _song.source);
     _audioPlayerManager.init();
@@ -65,6 +66,7 @@ class _NowPlayingPageState extends State<NowPlayingPage>
       }
     });
   }
+
   void _handleSongCompletion() {
     if (_repeatMode == RepeatMode.one) {
       _audioPlayerManager.player.seek(Duration.zero);
@@ -88,14 +90,14 @@ class _NowPlayingPageState extends State<NowPlayingPage>
         middle: const Text(
           'Now Playing',
         ),
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: Colors.white,
         trailing: IconButton(
           onPressed: () {},
           icon: const Icon(Icons.more_horiz),
         ),
       ),
       child: Scaffold(
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor: Colors.white,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -183,19 +185,20 @@ class _NowPlayingPageState extends State<NowPlayingPage>
         MediaButtonControl(
             function: _setPrevSong,
             icon: Icons.skip_previous,
-            color: Colors.white,
+            color: Colors.black,
             size: 36),
         _playButton(),
         MediaButtonControl(
             function: _setNextSong,
             icon: Icons.skip_next,
-            color: Colors.white,
+            color: Colors.black,
             size: 36),
         MediaButtonControl(
             function: _cycleRepeatMode,
             icon: _getRepeatIcon(),
             color: _getRepeatColor(),
             size: 24),
+
       ],
     );
   }
@@ -208,6 +211,7 @@ class _NowPlayingPageState extends State<NowPlayingPage>
         final progress = durationState?.progress ?? Duration.zero;
         final buffered = durationState?.buffered ?? Duration.zero;
         final total = durationState?.total ?? Duration.zero;
+
         return ProgressBar(
           progress: progress,
           total: total,
@@ -222,8 +226,11 @@ class _NowPlayingPageState extends State<NowPlayingPage>
           thumbGlowColor: Colors.purple.withOpacity(0.3),
           thumbRadius: 10.0,
         );
+
       },
+
     );
+
   }
 
   StreamBuilder<PlayerState> _playButton() {
@@ -248,7 +255,7 @@ class _NowPlayingPageState extends State<NowPlayingPage>
               _audioPlayerManager.player.play();
             },
             icon: Icons.play_arrow,
-            color: Colors.white,
+            color: Colors.black,
             size: 48,
           );
         } else if (processingState != ProcessingState.completed) {
@@ -259,7 +266,7 @@ class _NowPlayingPageState extends State<NowPlayingPage>
                 _pauseRotationAnim();
               },
               icon: Icons.pause,
-              color: Colors.white,
+              color: Colors.black,
               size: 48);
         } else {
           if (processingState == ProcessingState.completed) {
@@ -273,7 +280,7 @@ class _NowPlayingPageState extends State<NowPlayingPage>
                 _playRotationAnim();
               },
               icon: Icons.replay,
-              color: Colors.white,
+              color: Colors.black,
               size: 48);
         }
       },
@@ -303,18 +310,17 @@ class _NowPlayingPageState extends State<NowPlayingPage>
     }
   }
 
-  Color   _getRepeatColor() {
+  Color _getRepeatColor() {
     switch (_repeatMode) {
       case RepeatMode.off:
         return Colors.grey;
       case RepeatMode.one:
       case RepeatMode.all:
-        return Colors.white;
+        return Colors.black;
       default:
         return Colors.grey;
     }
   }
-
 
   void _setShuffle() {
     setState(() {
@@ -397,8 +403,8 @@ class MediaButtonControl extends StatefulWidget {
   final Color? color;
 
   @override
-
   State<StatefulWidget> createState() => _MediaButtonControlState();
+
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: function,

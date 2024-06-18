@@ -145,7 +145,7 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Vui lòng nhập email';
-                  } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                  } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) { //username@domain.extension
                     return 'Email không hợp lệ';
                   }
                   return null;

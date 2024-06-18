@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:moblie/ui/discovery/discovery.dart';
@@ -169,10 +168,10 @@ class _HomeTabPageState extends State<HomeTabPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    const Text('Model Bottom Sheet'),
+                    const Text('Nothing'),
                     ElevatedButton(
                         onPressed: () => Navigator.pop(context),
-                        child: const Text('Close Bottom Sheet'))
+                        child: const Text('Close'))
                   ],
                 ),
               ),
